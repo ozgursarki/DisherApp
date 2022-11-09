@@ -6,15 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ozgursarki.disherapp.R
+import com.ozgursarki.disherapp.adapter.CategoryListAdapter
+import com.ozgursarki.disherapp.databinding.FragmentCategoryListBinding
 
 
 class CategoryListFragment : Fragment() {
+
+    private lateinit var binding: FragmentCategoryListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_category_list, container, false)
+        binding = FragmentCategoryListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val list = listOf<String>("asda","asdafs","asdasdas","asdasd","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa")
+        binding.recyclerview.adapter = CategoryListAdapter(list)
     }
 
 }
