@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.ozgursarki.disherapp.R
 import com.ozgursarki.disherapp.adapter.CategoryListAdapter
 import com.ozgursarki.disherapp.databinding.FragmentCategoryListBinding
+import com.ozgursarki.disherapp.listener.ClickListener
 import com.ozgursarki.disherapp.model.CategoryItem
+import com.ozgursarki.disherapp.model.CategoryX
 import com.ozgursarki.disherapp.service.FoodAPI
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 
-class CategoryListFragment : Fragment() {
+class CategoryListFragment : Fragment(), ClickListener{
 
     private lateinit var binding: FragmentCategoryListBinding
     private val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
@@ -53,10 +57,25 @@ class CategoryListFragment : Fragment() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { model ->
-                binding.recyclerview.adapter = CategoryListAdapter(model.categories)
+                /*
+                binding.recyclerview.adapter = CategoryListAdapter(model.categories, clicked = {
+                    this.findNavController().navigate(R.id.action_categoryListFragment_to_foodListFragment)
+                })
+
+
+                 */
+                val adapter = CategoryListAdapter(model.categories)
+                binding.recyclerview.adapter = adapter
+                adapter.setListener(this)
+
             })
     }
 
+    override fun clicked(category: CategoryX) {
+        //this.findNavController().navigate(R.id.action_categoryListFragment_to_foodListFragment)
+        val action = CategoryListFragmentDirections.actionCategoryListFragmentToFoodListFragment(category)
+        this.findNavController().navigate(action)
+    }
 
 
 }

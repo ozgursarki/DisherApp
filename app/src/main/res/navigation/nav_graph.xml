@@ -23,6 +23,10 @@
         <action
             android:id="@+id/action_foodListFragment_to_foodDetailFragment"
             app:destination="@id/foodDetailFragment" />
+        <argument
+            android:name="categoryItem"
+            app:argType="com.ozgursarki.disherapp.model.CategoryX" />
+
     </fragment>
     <fragment
         android:id="@+id/foodDetailFragment"
