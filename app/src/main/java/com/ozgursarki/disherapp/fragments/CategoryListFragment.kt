@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.ozgursarki.disherapp.Constant
 import com.ozgursarki.disherapp.R
 import com.ozgursarki.disherapp.adapter.CategoryListAdapter
 import com.ozgursarki.disherapp.databinding.FragmentCategoryListBinding
@@ -27,7 +28,6 @@ import java.util.*
 class CategoryListFragment : Fragment(), ClickListener{
 
     private lateinit var binding: FragmentCategoryListBinding
-    private val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
     private var compositeDisposable: CompositeDisposable? = null
 
     override fun onCreateView(
@@ -42,13 +42,11 @@ class CategoryListFragment : Fragment(), ClickListener{
         super.onViewCreated(view, savedInstanceState)
         compositeDisposable = CompositeDisposable()
         loadData()
-        val list = listOf<String>("asda","asdafs","asdasdas","asdasd","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa","asdasdassa")
-
     }
 
     fun loadData(){
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(Constant.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(FoodAPI::class.java)
@@ -64,6 +62,7 @@ class CategoryListFragment : Fragment(), ClickListener{
 
 
                  */
+
                 val adapter = CategoryListAdapter(model.categories)
                 binding.recyclerview.adapter = adapter
                 adapter.setListener(this)

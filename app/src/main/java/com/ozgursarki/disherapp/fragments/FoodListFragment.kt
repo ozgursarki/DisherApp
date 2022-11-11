@@ -6,8 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
+import com.ozgursarki.disherapp.Constant
 import com.ozgursarki.disherapp.R
+import com.ozgursarki.disherapp.adapter.FoodListAdapter
 import com.ozgursarki.disherapp.databinding.FragmentFoodListBinding
+import com.ozgursarki.disherapp.model.CategoryX
+import com.ozgursarki.disherapp.model.FoodItem
+import com.ozgursarki.disherapp.model.Meal
+import com.ozgursarki.disherapp.service.FoodAPI
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class FoodListFragment : Fragment() {
@@ -17,7 +30,7 @@ class FoodListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFoodListBinding.inflate(inflater,container,false)
+        binding = FragmentFoodListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -27,9 +40,26 @@ class FoodListFragment : Fragment() {
         val args: FoodListFragmentArgs by navArgs()
         val item = args.categoryItem
 
-        binding.description.text = item.strCategoryDescription
-
-
+        loadFood(item)
     }
 
+    fun loadFood(item: CategoryX) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constant.baseUrl).addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(FoodAPI::class.java)
+
+        retrofit.GetFood(item.strCategory)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object: Consumer<FoodItem> {
+                override fun accept(t: FoodItem?) {
+                    val adapter = FoodListAdapter(t!!.meals)
+                    binding.recyclerview.adapter = adapter
+                }
+
+            })
+
+    }
 }
+
