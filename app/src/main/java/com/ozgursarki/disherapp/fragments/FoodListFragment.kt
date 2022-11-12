@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ozgursarki.disherapp.Constant
 import com.ozgursarki.disherapp.R
@@ -44,17 +45,19 @@ class FoodListFragment : Fragment() {
     }
 
     fun loadFood(item: CategoryX) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constant.baseUrl).addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build().create(FoodAPI::class.java)
+        val retrofit = Constant.getRetrofit()
 
         retrofit.GetFood(item.strCategory)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object: Consumer<FoodItem> {
                 override fun accept(t: FoodItem?) {
-                    val adapter = FoodListAdapter(t!!.meals)
+                    val adapter = FoodListAdapter(t!!.meals) {
+
+                        val action = FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(it)
+                        this@FoodListFragment.findNavController().navigate(action)
+
+                    }
                     binding.recyclerview.adapter = adapter
                 }
 

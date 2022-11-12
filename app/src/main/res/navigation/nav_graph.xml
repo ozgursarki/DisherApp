@@ -32,5 +32,12 @@
         android:id="@+id/foodDetailFragment"
         android:name="com.ozgursarki.disherapp.fragments.FoodDetailFragment"
         android:label="fragment_food_detail"
-        tools:layout="@layout/fragment_food_detail" />
+        tools:layout="@layout/fragment_food_detail" >
+
+        <argument
+            android:name="details"
+            app:argType="com.ozgursarki.disherapp.model.Meal">
+
+        </argument>
+    </fragment>
 </navigation>

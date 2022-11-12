@@ -1,18 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/material_dynamic_tertiary30"
-    tools:context=".fragments.FoodDetailFragment">
+    android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/FoodImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-</FrameLayout>
+    <TextView
+        android:id="@+id/FoodName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        tools:text="Chicken Breast"
+        app:layout_constraintEnd_toEndOf="@+id/FoodImage"
+        app:layout_constraintStart_toStartOf="@+id/FoodImage"
+        app:layout_constraintTop_toBottomOf="@+id/FoodImage" />
+
+    <TextView
+        android:id="@+id/malzeme1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        tools:text="Salt"
+        app:layout_constraintEnd_toEndOf="@+id/FoodName"
+        app:layout_constraintStart_toStartOf="@+id/FoodName"
+        app:layout_constraintTop_toBottomOf="@+id/FoodName" />
+
+    <TextView
+        android:id="@+id/malzeme2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        tools:text="Lemon"
+        app:layout_constraintEnd_toEndOf="@+id/malzeme1"
+        app:layout_constraintStart_toStartOf="@+id/malzeme1"
+        app:layout_constraintTop_toBottomOf="@+id/malzeme1" />
+
+    <TextView
+        android:id="@+id/link"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="24dp"
+        tools:text="https://www.youtube.com/watch?v=4MpYuaJsvRw"
+        app:layout_constraintEnd_toEndOf="@+id/malzeme2"
+        app:layout_constraintStart_toStartOf="@+id/malzeme2"
+        app:layout_constraintTop_toBottomOf="@+id/malzeme2" />
+
+    <TextView
+        android:id="@+id/yapilisi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Yapılışı :"
+        android:textColor="@color/red"
+        app:layout_constraintEnd_toEndOf="@+id/link"
+        app:layout_constraintStart_toStartOf="@+id/link"
+        app:layout_constraintTop_toBottomOf="@+id/link" />
+
+    <TextView
+        android:id="@+id/talimat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:padding="10dp"
+        tools:text="Mix all the ingredients in the Honey Teriyaki Glaze together. Whisk to blend well. Combine the salmon and the Glaze together.\r\n\r\nHeat up a skillet on medium-low heat. Add the oil, Pan-fry the salmon on both sides until it’s completely cooked inside and the glaze thickens.\r\n\r\nGarnish with sesame and serve immediately."
+        app:layout_constraintEnd_toEndOf="@+id/yapilisi"
+        app:layout_constraintStart_toStartOf="@+id/yapilisi"
+        app:layout_constraintTop_toBottomOf="@+id/yapilisi" />
+</androidx.constraintlayout.widget.ConstraintLayout>

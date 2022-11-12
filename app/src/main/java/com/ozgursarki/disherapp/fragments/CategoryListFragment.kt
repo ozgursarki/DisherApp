@@ -45,11 +45,7 @@ class CategoryListFragment : Fragment(), ClickListener{
     }
 
     fun loadData(){
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constant.baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build().create(FoodAPI::class.java)
+        val retrofit = Constant.getRetrofit()
 
         compositeDisposable?.add(retrofit.GetCategories()
             .subscribeOn(Schedulers.io())

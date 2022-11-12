@@ -13,7 +13,7 @@ class CategoryViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val title = itemView.findViewById<TextView>(R.id.Title)
         val image = itemView.findViewById<ImageView>(R.id.imageView)
 
-        Picasso.get().load(category.strCategoryThumb).into(image)
+        //Picasso.get().load(category.strCategoryThumb).into(image)
 
         title.text = category.strCategory
 

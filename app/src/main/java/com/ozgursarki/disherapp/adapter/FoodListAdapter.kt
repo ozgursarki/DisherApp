@@ -7,7 +7,7 @@ import com.ozgursarki.disherapp.R
 import com.ozgursarki.disherapp.adapter.viewholder.FoodViewHolder
 import com.ozgursarki.disherapp.model.Meal
 
-class FoodListAdapter(val list: List<Meal>) : RecyclerView.Adapter<FoodViewHolder>() {
+class FoodListAdapter(val list: List<Meal>, val hof: (Meal) -> Unit) : RecyclerView.Adapter<FoodViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.food_row,parent,false)
         return FoodViewHolder(view)
@@ -19,6 +19,6 @@ class FoodListAdapter(val list: List<Meal>) : RecyclerView.Adapter<FoodViewHolde
     }
 
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
-        holder.enject(list[position])
+        holder.enject(list[position], hof )
     }
 }
