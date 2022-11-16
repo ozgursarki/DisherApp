@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/cardview_light_background"
-        tools:context=".fragments.CategoryListFragment">
+        tools:context=".fragments.categoryList.CategoryListFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"

@@ -8,7 +8,7 @@ import com.ozgursarki.disherapp.adapter.viewholder.CategoryViewHolder
 import com.ozgursarki.disherapp.listener.ClickListener
 import com.ozgursarki.disherapp.model.CategoryX
 
-class CategoryListAdapter(val list: List<CategoryX>): RecyclerView.Adapter<CategoryViewHolder>() {
+class CategoryListAdapter(var list: List<CategoryX>) : RecyclerView.Adapter<CategoryViewHolder>() {
 
     private lateinit var listener: ClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -31,4 +31,11 @@ class CategoryListAdapter(val list: List<CategoryX>): RecyclerView.Adapter<Categ
     }
 
 
+    fun setCategoryList(newList:List<CategoryX>) {
+
+        this.list = newList
+        notifyDataSetChanged()
+
+
+    }
 }
