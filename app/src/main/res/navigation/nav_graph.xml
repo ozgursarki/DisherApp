@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/foodListFragment"
-        android:name="com.ozgursarki.disherapp.fragments.FoodListFragment"
+        android:name="com.ozgursarki.disherapp.fragments.foodList.FoodListFragment"
         android:label="fragment_food_list"
         tools:layout="@layout/fragment_food_list" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/foodDetailFragment"
-        android:name="com.ozgursarki.disherapp.fragments.FoodDetailFragment"
+        android:name="com.ozgursarki.disherapp.fragments.FoodDetail.FoodDetailFragment"
         android:label="fragment_food_detail"
         tools:layout="@layout/fragment_food_detail" >
 

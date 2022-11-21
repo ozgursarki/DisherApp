@@ -1,32 +1,34 @@
-package com.ozgursarki.disherapp.fragments
+package com.ozgursarki.disherapp.fragments.foodList
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ozgursarki.disherapp.Constant
-import com.ozgursarki.disherapp.R
 import com.ozgursarki.disherapp.adapter.FoodListAdapter
+import com.ozgursarki.disherapp.databinding.FragmentFoodDetailBinding
 import com.ozgursarki.disherapp.databinding.FragmentFoodListBinding
+import com.ozgursarki.disherapp.listener.ClickListener
+import com.ozgursarki.disherapp.listener.ClickListenerForMeal
 import com.ozgursarki.disherapp.model.CategoryX
 import com.ozgursarki.disherapp.model.FoodItem
 import com.ozgursarki.disherapp.model.Meal
-import com.ozgursarki.disherapp.service.FoodAPI
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
 
-class FoodListFragment : Fragment() {
+class FoodListFragment : Fragment(), ClickListenerForMeal {
 
+    private lateinit var viewModel: FoodListViewModel
     private lateinit var binding: FragmentFoodListBinding
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,31 +40,32 @@ class FoodListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProvider(this).get(FoodListViewModel::class.java)
+
+        val adapter = FoodListAdapter(listOf())
+
+
+        viewModel.mealList.observe(viewLifecycleOwner,{
+            adapter.setAdapterList(it)
+        })
+
+
+        binding.recyclerview.adapter = adapter
+        adapter.setListener(this)
+
         val args: FoodListFragmentArgs by navArgs()
         val item = args.categoryItem
 
-        loadFood(item)
+        viewModel.loadFood(item)
     }
 
-    fun loadFood(item: CategoryX) {
-        val retrofit = Constant.getRetrofit()
 
-        retrofit.GetFood(item.strCategory)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object: Consumer<FoodItem> {
-                override fun accept(t: FoodItem?) {
-                    val adapter = FoodListAdapter(t!!.meals) {
-
-                        val action = FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(it)
-                        this@FoodListFragment.findNavController().navigate(action)
-
-                    }
-                    binding.recyclerview.adapter = adapter
-                }
-
-            })
-
+    override fun clickedMeal(meal: Meal) {
+        val action = FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(meal)
+        this.findNavController().navigate(action)
     }
+
+
+
 }
 

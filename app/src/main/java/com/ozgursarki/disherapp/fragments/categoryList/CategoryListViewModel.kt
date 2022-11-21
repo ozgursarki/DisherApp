@@ -25,10 +25,6 @@ class CategoryListViewModel(application: Application): AndroidViewModel(applicat
             .subscribe { model ->
                 categoryList.value = model.categories
 
-
-
-
-
             })
     }
 }

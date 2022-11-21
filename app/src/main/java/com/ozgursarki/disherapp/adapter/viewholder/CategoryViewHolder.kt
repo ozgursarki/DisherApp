@@ -23,14 +23,5 @@ class CategoryViewHolder(view: View): RecyclerView.ViewHolder(view) {
             }
 
         })
-
-
-
-        /*
-       title.setOnClickListener {
-
-       }
-
-        */
     }
 }
